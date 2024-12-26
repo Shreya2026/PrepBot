@@ -16,4 +16,14 @@ NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_api_key
 
 NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT=5
 
-NEXT_PUBLIC_INFORMATION="Enable Video Cam and Microphone to start the interview. It has 5 questions and at last you will get the report on the basis of your answer. Good Luck! Please allow the browser to access the camera and microphone."
+NEXT_PUBLIC_INFORMATION="Enable Video Cam and Microphone to start the interview. It has 5 questions and at last you will get the report on the basis of your answer. Good Luck! Please allow the browser to access the camera and microphone."```
+
+## Local Setup
+
+To run this project locally, you'll need to set up the PostgreSQL database connection.
+
+1. Create a `.env` file in the root directory.
+2. Add the following database connection URL to the `.env` file:
+
+   ```plaintext
+   DB_URL=postgresql://your_user:your_password@your_host:your_port/your_database_name?sslmode=require
