@@ -16,7 +16,8 @@ NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_api_key
 
 NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT=5
 
-NEXT_PUBLIC_INFORMATION="Enable Video Cam and Microphone to start the interview. It has 5 questions and at last you will get the report on the basis of your answer. Good Luck! Please allow the browser to access the camera and microphone."```
+NEXT_PUBLIC_INFORMATION="Enable Video Cam and Microphone to start the interview. It has 5 questions and at last you will get the report on the basis of your answer. Good Luck! Please allow the browser to access the camera and microphone."
+```
 
 ## Local Setup
 
