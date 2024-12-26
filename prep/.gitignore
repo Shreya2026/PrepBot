@@ -33,7 +33,7 @@ yarn-error.log*
 .env*
 
 #drizzle files
-drizzle.config.js
+prep/drizzle.config.js
 
 
 # vercel
