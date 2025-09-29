@@ -15,11 +15,23 @@ import { useRouter } from 'next/navigation';
 function Feedback({ params }) {
     const [feedbackList, setFeedbackList] = useState([]);
     const [overallRating, setOverallRating] = useState(0);
+    const [interviewId, setInterviewId] = useState(null);
     const router = useRouter();
 
     useEffect(() => {
-        GetFeedback();
-    }, []);
+        // Handle async params in Next.js 15+
+        const resolveParams = async () => {
+            const resolvedParams = await params;
+            setInterviewId(resolvedParams.interviewid);
+        };
+        resolveParams();
+    }, [params]);
+
+    useEffect(() => {
+        if (interviewId) {
+            GetFeedback();
+        }
+    }, [interviewId]);
 
     useEffect(() => {
         if (feedbackList.length > 0) {
@@ -30,9 +42,11 @@ function Feedback({ params }) {
     }, [feedbackList]);
 
     const GetFeedback = async () => {
+        if (!interviewId) return;
+        
         const result = await db.select()
             .from(UserAnswer)
-            .where(eq(UserAnswer.mockIdRef, params.interviewid))
+            .where(eq(UserAnswer.mockIdRef, interviewId))
             .orderBy(UserAnswer.id);
         console.log("🚀 ~ file: page.jsx:11 ~ GetFeedback ~ result:", result);
         setFeedbackList(result);

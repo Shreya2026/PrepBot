@@ -37,8 +37,35 @@ function AddNewInterview() {
     const InputPrompt = "Job Position: " + jobPosition + ", Job Description: " + jobDescription + ", Years Of Experience: " + jobExperience + " Depends on this information please give me " + process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT + " Interview questions with answers in JSON format, Give me questions and answers as field in JSON.";
 
     const result = await chatSession.sendMessage(InputPrompt);
-    const MockJsonResp = (result.response.text()).replace('```json', '').replace('```', '');
-    console.log(JSON.parse(MockJsonResp));
+    let MockJsonResp = result.response.text();
+    
+    // Clean the response - remove markdown formatting and extra text
+    MockJsonResp = MockJsonResp.replace(/```json/g, '').replace(/```/g, '');
+    
+    // Find the JSON content between { and }
+    const jsonStart = MockJsonResp.indexOf('[');
+    const jsonEnd = MockJsonResp.lastIndexOf(']');
+    
+    if (jsonStart !== -1 && jsonEnd !== -1) {
+      MockJsonResp = MockJsonResp.substring(jsonStart, jsonEnd + 1);
+    }
+    
+    // Additional cleaning
+    MockJsonResp = MockJsonResp.trim();
+    
+    console.log("Raw AI Response:", result.response.text());
+    console.log("Cleaned JSON:", MockJsonResp);
+    
+    try {
+      const parsedJson = JSON.parse(MockJsonResp);
+      console.log("Parsed JSON:", parsedJson);
+    } catch (parseError) {
+      console.error("JSON Parse Error:", parseError);
+      console.error("Problematic JSON string:", MockJsonResp);
+      alert("Error parsing AI response. Please try again.");
+      setLoading(false);
+      return;
+    }
 
     setJsonResponse(MockJsonResp);
 
